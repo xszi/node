@@ -1,0 +1,4 @@
+2019-12-06 15:04:10,421 INFO 8496 [egg:logger] init all loggers with options: {"dir":"C:\\Users\\jiuhua-pc\\Desktop\\egg-middle\\logs\\cnode-api-async","encoding":"utf8","env":"unittest","level":"INFO","consoleLevel":"WARN","disableConsoleAfterReady":false,"outputJSON":false,"buffer":false,"appLogName":"cnode-api-async-web.log","coreLogName":"egg-web.log","agentLogName":"egg-agent.log","errorLogName":"common-error.log","coreLogger":{},"allowDebugAtProd":false,"type":"agent"}
+2019-12-06 15:04:10,537 INFO 8496 [egg:core] dump config after load, 7ms
+2019-12-06 15:04:10,629 INFO 8496 [egg-watcher:agent] watcher start success
+2019-12-06 15:04:10,639 INFO 8496 [egg:core] dump config after ready, 8ms
