@@ -54,5 +54,4 @@ JSONP 跨域
 
 ## Node 服务部署
 
- pm2
- 
+pm2
