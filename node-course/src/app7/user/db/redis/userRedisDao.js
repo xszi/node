@@ -25,4 +25,19 @@ class UserRedisDao {
         })
     }
 
+    async resetUserSessionExpirationTime(userSessionId) {
+        const redis = this.getRedisConnection()
+        redis.expire(redisKeyPrefix + userSessionId, 1800, (error, result) => {
+            redis.quit()
+        })
+    }
+
+    async removeUserSessionByUserSessionId(userSessionId) {
+        const redis = this.getRedisConnection()
+        redis.del(redisKeyPrefix + userSessionId, (error, result) => {
+            redis.quit()
+        })
+    }
 }
+
+module.exports = new UserRedisDao()
