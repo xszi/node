@@ -38,3 +38,5 @@ if (cluster.isMaster) {
         console.log('listening on 3000')
     })
 }
+
+// 主进程和子进程之间的操作
