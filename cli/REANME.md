@@ -14,15 +14,17 @@
     bin(binary) 可执行二进制文件
 
     npm link 执行映射 npm cli --> node index.js
-    软链(指针) / 硬链 
-    
+
+    软链(指针) / 硬链 (引用和拷贝的关系)
+
     ```js 硬链 ln link1.txt link2.txt
         -rw-r--r-- 2 jiuhua-pc 197121     7  8月  2 17:52 link1.txt
         -rw-r--r-- 2 jiuhua-pc 197121     7  8月  2 17:52 link2.txt
     ```
 
-    ``` js 软链 ln -s link1.txt link2.txt
+    ``` js 软链 ln -s link1.txt link3.txt
         // window好像看不出来
+        lin3.txt --> link1.txt
     ```
 
     ```js
@@ -36,3 +38,5 @@
         'C:\\Users\\jiuhua-pc\\AppData\\Roaming\\npm\\node_modules\\cli\\index.js',
         '--help' ]
     ```
+
+    npm publish
