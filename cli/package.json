@@ -1,9 +1,9 @@
 {
   "name": "xszi-cli",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "",
   "bin": {
-    "cli": "./index.js"
+    "xszi_cli": "./index.js"
   },
   "main": "index.js",
   "scripts": {
@@ -12,6 +12,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "clui": "^0.3.6",
     "commander": "^6.0.0",
     "inquirer": "^7.3.3"
   }

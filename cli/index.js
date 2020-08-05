@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+// 是告诉机器，要用node 来执行这个文件
 
 const { program } = require('commander')
 const inquirer = require('inquirer')
