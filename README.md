@@ -55,3 +55,57 @@ JSONP 跨域
 ## Node 服务部署
 
 pm2
+
+
+
+## ES-module 和 common.js的使用区别，熟练掌握
+
+```js
+    // ES-module 编译时加载，即静态加载, 可按需加载 ---> tree-shaking
+    // a.js
+    export const count = 1
+    export function sum (a, b) {
+        return a + b
+    }
+
+    // 换种方式导出
+    // const count = 1
+    // function sum (a, b) {
+    //     return a + b
+    // }
+    // export default { count, sum }
+
+    // b.js
+    import res from './a.js'
+    // import { sum } from './a.js' 按需加载
+
+    console.log(res.count)
+    console.log(res.sum(1, 3))
+```
+
+```js
+    // common.js 运行时加载, 加载整个对象
+    // c.js
+    const count = 1;
+    const sum = (a, b) =>{ 
+        return a + b;
+    }
+    module.exports = {
+        count,
+        sum
+    }
+    // d.js
+    const res = require('./c.js')
+    // const { sum } = require('./c.js') 可按需加载？？？
+    console.log(res.count)
+    console.log(res.sum(1, 3))
+```
+
+### 区别一
+
+前者属于编译时加载，即静态加载，在编译时就能够确定模块的依赖关系，以及输入和输出的变量；后者属于运行时加载，都只有在代码运行时才能确定这些东西。ESM形式的好处是可以做到tree shaking。
+
+### 区别二
+
+前者可以加载模块的部分内容，后者需要加载模块整个对象，再取到内容。
+
