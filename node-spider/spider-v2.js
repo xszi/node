@@ -1,18 +1,19 @@
 const axios = require('axios')
 const fs = require('fs')
-let request = require('request')
 const path = require('path')
-const cheerio = require('cheerio');	
+const cheerio = require('cheerio');
+const request = require('request')
+
 
 const page = 1;
-let searchUrl = `https://huaban.com/search/?q=%E6%A0%91&kdwqmi48&page=${page}2&per_page=20&wfl=1`;
+const searchUrl = `https://huaban.com/search/?q=food&page=${page}&per_page=20&wfl=1`;
 
 axios.get(searchUrl)
     .then(resp => {
-        var $ = cheerio.load(resp.data);
+        const $ = cheerio.load(resp.data);
         const content = [];
         $('script').each(function () {
-            var script = $(this).html();
+            const script = $(this).html();
             if (script.includes('[{') && script.includes('}]') && script.includes('app.page["pins"]')) {
                 content.push(script)
             }
@@ -32,17 +33,19 @@ axios.get(searchUrl)
         })
         console.log(imgList, '111')
         imgList.forEach(element => {
-            // 两种写文件到本地的方式： 1.使用buffer；2. 使用createWriteStream
+            // 两种写文件到本地的方式：
+            // 1.使用buffer；
             axios.get(element.url, {
                 responseType: 'arraybuffer'
             })
             .then(res => {
                 // console.log(res)
                 let buffer = Buffer.from(res.data, 'binary')
-                fs.writeFileSync(path.resolve(__dirname, `./images/${element.id}.webp`), buffer)
+                fs.writeFileSync(path.resolve(__dirname, `./huaban_images/${element.id}.webp`), buffer)
             }).catch(err => {
                 console.log(err);
             })
+            // 2. 使用createWriteStream
             // const img_filename = `${element.id}.jpg`;  
             // request.head(element.url, (err, res, body) => {
             //     if(err){
@@ -50,6 +53,5 @@ axios.get(searchUrl)
             //     }
             // });
             // request(element.url).pipe(fs.createWriteStream('./images/'+ img_filename)); 
-            
         })
 })
