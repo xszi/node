@@ -34,7 +34,7 @@ axios.get(searchUrl)
         console.log(imgList, '111')
         imgList.forEach(element => {
             // 两种写文件到本地的方式：
-            // 1.使用buffer；
+            // 1.使用buffer & fs.writeFileSync；
             axios.get(element.url, {
                 responseType: 'arraybuffer'
             })
@@ -45,13 +45,8 @@ axios.get(searchUrl)
             }).catch(err => {
                 console.log(err);
             })
-            // 2. 使用createWriteStream
+            // 2. 使用request & createWriteStream
             // const img_filename = `${element.id}.jpg`;  
-            // request.head(element.url, (err, res, body) => {
-            //     if(err){
-            //         console.log(err);
-            //     }
-            // });
             // request(element.url).pipe(fs.createWriteStream('./images/'+ img_filename)); 
         })
 })
