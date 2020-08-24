@@ -36,6 +36,6 @@ fetch("https://unsplash.com/napi/search/photos?query=food&xp=&per_page=20&page=2
   "body": null,
   "method": "GET",
   "mode": "cors"
-}).then(res => {
+}).then(resp => resp.json()).then(res => {
     console.log(res);
 });

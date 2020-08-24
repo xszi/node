@@ -40,6 +40,7 @@ axios.get(searchUrl)
             })
             .then(res => {
                 // console.log(res)
+                // let buffer = Buffer.from(res.data, 'uft8')
                 let buffer = Buffer.from(res.data, 'binary')
                 fs.writeFileSync(path.resolve(__dirname, `./huaban_images/${element.id}.webp`), buffer)
             }).catch(err => {
