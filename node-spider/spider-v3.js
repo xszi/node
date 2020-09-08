@@ -18,6 +18,7 @@
 // }).then(res => {
 //     console.log(res);
 // });
+const axios = require('axios')
 const fetch = require('node-fetch')
 // node-fetch
 fetch("https://unsplash.com/napi/search/photos?query=food&xp=&per_page=20&page=2", {
@@ -37,5 +38,19 @@ fetch("https://unsplash.com/napi/search/photos?query=food&xp=&per_page=20&page=2
   "method": "GET",
   "mode": "cors"
 }).then(resp => resp.json()).then(res => {
-    console.log(res);
+    // console.log(res instanceof Object);
+    res.results.forEach(result => {
+        const url = result.links.download
+        console.log(url);
+        // const id = result.id
+        // axios.get(url, {
+        //     responseType: 'arraybuffer'
+        // })
+        // .then(resp => {
+        //     const buffer = Buffer.from(resp.data, 'binary')
+        //     fs.writeFileSync(path.resolve(__dirname, `./unsplash_images/${id}.jpeg`), buffer)
+        // }).catch(err => {
+        //     console.log(err);
+        // })
+    })
 });
