@@ -1,19 +1,24 @@
-//创建HTTP服务器
+//创建express服务
 
-//1. 加载http模块
-const http = require('http');
+//1. 加载express模块
+const express = require('express');
+const app = express();
 const { getUrlList, getUrlListAsync } = require('./spider-v1')
 
-//2. 创建http服务器
-// 参数: 请求的回调, 当有人访问服务器的时候,就会自动调用回调函数
-const server = http.createServer((req, res) => {
-    //回调数据
+// 2. 访问路由执行回调
+app.get('/', (req, res) => {
     // getUrlList();
     getUrlListAsync(2)
-    res.write('Hello, spider')
-})
+    res.send('hello v1');
+});
+
+app.get('/v2', (req, res) => {
+    // getUrlList();
+    // getUrlListAsync(2)
+    res.send('hello v2');
+});
 
 //3. 绑定端口
-server.listen(3000, () => {
+app.listen(3000, () => {
     console.log('server listening on port 3000!')
 })

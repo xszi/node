@@ -75,6 +75,7 @@ console.log(dom.window.document.querySelector("p").textContent); // "Hello world
 ```
 返回到前端网页便于查看
 使用路由来区分不同的版本，启动一个express/koa2/egg.js
+nodemon的使用
 ### 4. 存储数据方法
 
 - Buffer + fs.writeFileSync
