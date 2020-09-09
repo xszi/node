@@ -15,9 +15,10 @@
 //   "method": "GET",
 //   "mode": "cors",
 //   "credentials": "include"
-// }).then(res => {
+// })..then(resp => resp.json()).then(res => {
 //     console.log(res);
 // });
+
 const axios = require('axios')
 const fetch = require('node-fetch')
 // node-fetch

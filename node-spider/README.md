@@ -14,6 +14,23 @@
 - axios
 - node-fetch
 
+### 3. 网页解析
+
+    - cheerio
+    ```
+    ```
+    - jsdom
+
+    ```
+    const jsdom = require("jsdom");
+    const { JSDOM } = jsdom;
+    const dom = new JSDOM(`<!DOCTYPE html><p>Hello world</p>`);
+    console.log(dom.window.document.querySelector("p").textContent); // "Hello world"
+    ```
+    返回到前端网页便于查看
+    使用路由来区分不同的版本，启动一个express/koa2/egg.js
+    nodemon的使用
+
    <strong>跨越防爬虫</strong>
 
     - 设置等待时间
@@ -53,29 +70,13 @@
     ```
     - 避开不可见元素陷阱 （查一个举例）
     ```css
-    display: none;
-    opacity: 0
+        display: none;
+        opacity: 0
     ```
     - 进行模拟登陆 （查一个举例）
+        分析拿到cookie，设置请求访问
+        https://www.cnblogs.com/Lumia1020/p/5329945.html
 
-    知乎启发
-
-### 3. 网页解析
-
-- cheerio
-```
-```
-- jsdom
-
-```
-const jsdom = require("jsdom");
-const { JSDOM } = jsdom;
-const dom = new JSDOM(`<!DOCTYPE html><p>Hello world</p>`);
-console.log(dom.window.document.querySelector("p").textContent); // "Hello world"
-```
-返回到前端网页便于查看
-使用路由来区分不同的版本，启动一个express/koa2/egg.js
-nodemon的使用
 ### 4. 存储数据方法
 
 - Buffer + fs.writeFileSync
