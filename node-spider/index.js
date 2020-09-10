@@ -3,16 +3,29 @@
 //1. 加载express模块
 const express = require('express');
 const app = express();
-const { getUrlList, getUrlListAsync } = require('./spider-v1')
+const { getUrlList, getUrlListAsync } = require('./v1')
 
 // 2. 访问路由执行回调
 app.get('/', (req, res) => {
     // getUrlList();
+    console.log('come on');
     getUrlListAsync(2)
     res.send('hello v1');
 });
 
 app.get('/v2', (req, res) => {
+    // getUrlList();
+    // getUrlListAsync(2)
+    res.send('hello v2');
+});
+
+app.get('/v3', (req, res) => {
+    // getUrlList();
+    // getUrlListAsync(2)
+    res.send('hello v2');
+});
+
+app.get('/v4', (req, res) => {
     // getUrlList();
     // getUrlListAsync(2)
     res.send('hello v2');
