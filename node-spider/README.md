@@ -121,14 +121,13 @@
 ### 6. 爬虫举例
 
 - unsplash
-- bigbigwork（<strong>referer</strong>）
 - huaban（**cheerio + jsdom**）
+- bigbigwork（<strong>referer</strong>）
 
-[APP的数据抓取（fiddle抓包工具）](https://www.cnblogs.com/111testing/p/6231215.html)
+[APP的数据爬虫（fiddle抓包工具）](https://www.cnblogs.com/111testing/p/6231215.html)
 
 ### 7. 爬虫的前景
 
 - 八爪鱼的商业模式
 - 使用路由来区分不同的版本，启动一个express/koa2/egg.js
-- nodemon的使用
 - 返回到前端网页便于查看
