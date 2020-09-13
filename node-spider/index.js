@@ -13,15 +13,13 @@ app.get('/', (req, res) => {
     res.send('hello spider!');
 });
 
-app.get('/v1', async (req, res) => {
-    console.log('get data');
-
+app.get('/v1', (req, res) => {
     // promise
-    // let result = await getUrlListV1();
+    getUrlListV1();
 
     // async await
-    let result = await getUrlListAsyncV1(1)
-    res.send(result);
+    // let result = await getUrlListAsyncV1(1)
+    res.json('v1');
 });
 
 app.get('/v2', async (req, res) => {
@@ -29,16 +27,15 @@ app.get('/v2', async (req, res) => {
     res.json(result);
 });
 
-app.get('/v3', (req, res) => {
-    // getUrlList();
-    getUrlListFetch(1)
-    res.send('hello v3');
+app.get('/v3', async (req, res) => {
+    let result = await getUrlListFetch(1)
+    res.send(result);
 });
 
 app.get('/v4', (req, res) => {
     // getUrlList();
     // getUrlListAsync(2)
-    res.send('hello v2');
+    res.send('hello v4');
 });
 
 //3. 绑定端口
