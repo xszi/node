@@ -36,6 +36,7 @@ axios.get(searchUrl, { 'headers': requestHeaders })
             // }).catch(err => {
             //     console.log(err);
             // })
+            
             // 2. 使用request + fs.createWriteStream
             let img_filename = `${element.id}.webp`;  
             request({url: element.url, headers: requestHeaders}).pipe(fs.createWriteStream('./bigbigwork_images/'+ img_filename));

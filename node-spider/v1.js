@@ -4,7 +4,26 @@ const path = require('path')
 const request = require('request')
 
 function getUrlListV1 (page) {
-    // let searchUrl = `https://unsplash.com/napi/search/photos?query=food&xp=$per_page=20&page=${page}`;
+    let searchUrl = `https://unsplash.com/napi/search/photos?query=food&xp=$per_page=20&page=${page}`;
+
+    // 使用request 该模块已经弃用，不再维护
+    console.log('get data')
+    request({url: searchUrl}, (error, response, body) => {
+        //Do Something with the response
+        if (error) {
+            console.log(error)
+        } else {
+            const results = JSON.parse(response.body).results
+            // let urlList = []
+            results.forEach( (item) => {
+                const url = item.links.download
+                const fileId = item.id
+                request(url).pipe(fs.createWriteStream(`./unsplash_images/${fileId}.webp`))
+                // urlList.push(url)
+            })
+            // console.log(urlList)
+        }
+    });
 
     // 使用axios + buffer + fs.writeFileSync
     // axios.get(searchUrl)
@@ -28,24 +47,6 @@ function getUrlListV1 (page) {
     //         console.log(err);
     //     })
     // })
-
-    
-    const jsdom = require("jsdom");
-    const { JSDOM } = jsdom;
-    const dom = new JSDOM(`<!DOCTYPE html><p>Hello world</p><script>11111</script>`);
-    console.log(dom.window.document.querySelector("script").textContent); 
-
-    // console.log('get data')
-    // 使用request
-    // request({url: searchUrl}, (error, response, body) => {
-    //     //Do Something with the response
-    //     if (error) {
-    //         console.log(error)
-    //     } else {
-    //         console.log(response.body.results)
-    //         return response.body.results
-    //     }
-    // });
 }
 
 async function getUrlListAsyncV1 (page) {
