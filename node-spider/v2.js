@@ -7,6 +7,8 @@ const request = require('request')
 const { JSDOM } = require('jsdom')
 const circularJSON = require('circular-json');
 
+const { saveData } = require('./utils')
+ 
 async function getUrlListV2 (page) {
 
     // 第一步：分析请求链接，找到爬虫目标所在返回数据结构中的位置
@@ -42,7 +44,7 @@ async function getUrlListV2 (page) {
     // return keyArr
 
     const index = cheerioKeyArr[0].indexOf('= [{')
-    const resultArr = JSON.parse(keyArr[0].slice(index + 1))
+    const resultArr = JSON.parse(cheerioKeyArr[0].slice(index + 1))
     // return resultArr
 
     // 拼接图片Url，是用request下载
@@ -53,19 +55,22 @@ async function getUrlListV2 (page) {
         const fileId = item.file_id
 
         // 使用axios + buffer + fs.writeFileSync 存储数据
-        // axios.get(url, {
-        //     responseType: 'arraybuffer'
-        // }).then(res => {
-            // const buffer = Buffer.from(res.data, 'binary')
-            // fs.writeFileSync(path.resolve(__dirname, `./huaban_images/${fileId}.webp`), buffer)
-        // }).catch(err => {
-        //     console.error(err)
-        // })
+        axios.get(url, {
+            responseType: 'arraybuffer'
+        }).then(res => {
+            const buffer = Buffer.from(res.data, 'binary')
+            fs.writeFileSync(path.resolve(__dirname, `./huaban_images/${fileId}.webp`), buffer)
+        }).catch(err => {
+            console.error(err)
+        })
 
         // 使用request + pipe + fs.createWriteStream
         // webp格式图片的优势
-        request(url).pipe(fs.createWriteStream(`./huaban_images/${fileId}.webp`))
+        // request(url).pipe(fs.createWriteStream(`./huaban_images/${fileId}.webp`))
     })
+
+    // 保存到数据库
+    saveData(resultArr)
 }
 
 module.exports = { getUrlListV2 }

@@ -7,6 +7,8 @@ const { getUrlListV1, getUrlListAsyncV1 } = require('./v1')
 const { getUrlListV2 } = require('./v2')
 const { getUrlListFetch } =require('./v3')
 
+const { saveData } = require('./utils')
+
 
 // 2. 访问路由执行回调
 app.get('/', (req, res) => {
@@ -16,6 +18,7 @@ app.get('/', (req, res) => {
 app.get('/v1', (req, res) => {
     // promise
     getUrlListV1(1);
+    // saveData();
 
     // async await
     // let result = await getUrlListAsyncV1(1)
