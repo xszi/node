@@ -1,21 +1,29 @@
-# Node 实现爬虫
+# 使用Node.js 实现爬虫
+
+> 网络爬虫（Web Spider），是一种按照一定规则，自动抓取万维网信息的程序或者脚本。
+
+> 网络爬虫就是一个抓取网页的程序。
 
 ### 1. 两方面
 
 * 获取数据
-* 数据处理
+* 处理数据
 
-### 2. 数据请求
+### 2. 获取数据
 
-- request(superAgent)
+- request
 
-    Request最强大的功能在于其CookieJar的功能，它能够保存每一次请求的cookie，让我们的请求和在浏览器中点击一样，我们甚至不用去设置每一次的cookie，他会根据请求的主机域从jar中自动匹配与实时更新。
-    request中有个jar库，能够分析搜集返回的response，header, 记录登陆的信息，下次请求 在request header中带上模拟登陆
+* superAgent
 
 - axios
+
 - node-fetch(fetch)
 
-### 3. 数据解析
+    [JS HTTP 请求库哪家强？Axios，Request，Superagent，Fetch 还是 Supertest](https://juejin.im/post/6844903736268029965)
+
+### 3. 处理数据
+
+#### 3.1 数据解析
 
 - cheerio
 
@@ -41,19 +49,26 @@
   // "Hello world"
   ```
 
+#### 3.2. 存储数据
+
+- Buffer + fs.writeFileSync
+
+- pipe + fs.createWriteStream
+- 存储数据库 (mongodb) 
+
 ### 4. 爬虫攻防
 
 - 设置等待时间
 
   ```js
-  sleep();
+  setInterval(() => {}, XXX);
   ```
 
 - 设置请求头
 
   设置请求头的 **referer** 、 **User-Agent** 属性
 
-   **referer **是什么？
+   **[referer](http://www.ruanyifeng.com/blog/2019/06/http-referer.html) **是什么？
 
   > 当前请求页面的来源页面的地址，即表示当前页面是通过此来源页面里的链接进入的。
   > 服务端一般使用 Referer 请求头识别访问来源，可能会以此进行统计分析、日志记录以及缓存优化等。
@@ -63,6 +78,8 @@
       'referer': 'https://www.bigbigwork.com/tupian/image/20148309331.html' // eg bigbigwork大作网
   }
   ```
+
+  ***Referer Control***  —— 一个控制Referer的[谷歌插件](https://browsernative.com/http-referer-control-chrome/)
 
   **User Agent** 是什么？
 
@@ -95,39 +112,37 @@
           resolve()
       }
   })
-    ```
+  ```
 
-- 避开不可见元素陷阱 （如图）
+- 避开不可见元素陷阱
 
     ```css
   display: none;
   opacity: 0
-    ```
+  ```
 
-![不可见陷阱](https://github.com/xszi/node-study/blob/master/node-spider/%E4%B8%8D%E5%8F%AF%E8%A7%81%E9%99%B7%E9%98%B1.png)
+![不可见陷阱](E:\projects\node-study\node-spider\不可见陷阱.png)
 
   - 进行模拟登陆
-      [分析拿到cookie，设置请求访问](https://www.cnblogs.com/Lumia1020/p/5329945.html)
+      [**node.js实现模拟登录，自动签到领流量**](https://cnodejs.org/topic/54e96cf7ddce2d471403203f)
+      
+      [node爬虫进阶——登录](https://www.jianshu.com/p/87867f325184)
+      
+      [**用node.js实现验证码简单识别**](https://cnodejs.org/topic/56addaf524b0c1ec628ff0f6)  
+      
+      [一次基于Tensorflow+CNN的验证码识别之旅](https://www.jianshu.com/p/aa075424d2d2)
 
-### 5. 存储数据方法
-
-- Buffer + fs.writeFileSync
-
-    返回的responseType一定要是ArrayBuffer类型吗？
-    文件名chunk-hash
-
-- pipe + fs.createWriteStream
-
-### 6. 爬虫举例
+### 5. 爬虫举例
 
 - unsplash
 - huaban（**cheerio + jsdom**）
 - bigbigwork（<strong>referer</strong>）
 
-[APP的数据爬虫（fiddle抓包工具）](https://www.cnblogs.com/111testing/p/6231215.html)
+[APP的数据抓取（fiddle抓包工具）](https://www.cnblogs.com/111testing/p/6231215.html)
 
-### 7. 爬虫的前景
+### 6. 想法积累
 
-- 八爪鱼的商业模式
-- 使用路由来区分不同的版本，启动一个express/koa2/egg.js
-- 返回到前端网页便于查看
+- IP爬虫，代理IP
+- 模拟登陆领积分，发邮件通知等
+- 批量注册账号，微博批量点赞
+- 八爪鱼
