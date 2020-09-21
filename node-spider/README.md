@@ -121,7 +121,7 @@
   opacity: 0
   ```
 
-![不可见陷阱](E:\projects\node-study\node-spider\不可见陷阱.png)
+![不可见陷阱](https://github.com/xszi/node/blob/master/node-spider/%E4%B8%8D%E5%8F%AF%E8%A7%81%E9%99%B7%E9%98%B1.png)
 
   - 进行模拟登陆
       [**node.js实现模拟登录，自动签到领流量**](https://cnodejs.org/topic/54e96cf7ddce2d471403203f)
