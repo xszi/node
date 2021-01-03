@@ -12,7 +12,7 @@ const { saveData } = require('./utils')
 async function getUrlListV2 (page) {
 
     // 第一步：分析请求链接，找到爬虫目标所在返回数据结构中的位置
-    const searchUrl = `https://huaban.com/search/?q=food&page=${page}&per_page=20&wfl=1`
+    const searchUrl = `https://huaban.com/search/?q=food&kjgvaxzf&page=${page}&per_page=20&wfl=1`
 
     // 第二步：获取到数据，查看数据
     let { data } = await axios.get(searchUrl)
@@ -41,7 +41,7 @@ async function getUrlListV2 (page) {
     // 将script脚本内容过滤截取得到需要的key数组
     // 进一步处理数组得到json对象
     const cheerioKeyArr = content.filter(item => item.includes('app.page["pins"]'))[0].split(';').filter(item => item.includes('app.page["pins"]'))
-    // return keyArr
+    // return cheerioKeyArr
 
     const index = cheerioKeyArr[0].indexOf('= [{')
     const resultArr = JSON.parse(cheerioKeyArr[0].slice(index + 1))

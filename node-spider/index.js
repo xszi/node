@@ -12,7 +12,22 @@ const { saveData } = require('./utils')
 
 // 2. 访问路由执行回调
 app.get('/', (req, res) => {
-    res.send('hello spider!');
+
+    // const cheerio = require('cheerio')
+    // const $ = cheerio.load('<h2 class="title">Hello world</h2>')
+    
+    // $('h2.title').text('Hello there!')
+    // $('h2').addClass('welcome')
+    
+    // const result = $.html();
+    // <html><head></head><body><h2 class="title welcome">Hello there!</h2></body></html>
+
+    const jsdom = require("jsdom");
+    const { JSDOM } = jsdom;
+    const dom = new JSDOM(`<!DOCTYPE html><p><span>Hello world</span></p>`);
+    const result = dom.window.document.querySelector("p").innerHTML;
+
+    res.send('hello spider!' + result);
 });
 
 app.get('/v1', (req, res) => {
@@ -22,6 +37,8 @@ app.get('/v1', (req, res) => {
 
     // async await
     // let result = await getUrlListAsyncV1(1)
+
+    
 
     res.json('v1 spider');
 });

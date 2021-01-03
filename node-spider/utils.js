@@ -20,7 +20,7 @@ const saveData = (data) => {
             // 目前的Student表示数据库中特定的数据模式
             const Img = mongoose.model('img')
             
-            console.log(data, '555')
+            // console.log(data, '555')
             data && data.forEach(item => {
                 const img = new Img({
                     key: item.file.key,

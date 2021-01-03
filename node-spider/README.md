@@ -54,6 +54,7 @@
 - Buffer + fs.writeFileSync
 
 - pipe + fs.createWriteStream
+
 - 存储数据库 (mongodb) 
 
 ### 4. 爬虫攻防
