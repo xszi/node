@@ -5,10 +5,8 @@ const express = require('express');
 const app = express();
 const { getUrlListV1, getUrlListAsyncV1 } = require('./v1')
 const { getUrlListV2 } = require('./v2')
-const { getUrlListFetch } =require('./v3')
-
-const { saveData } = require('./utils')
-
+const { getUrlListFetch } = require('./v3')
+const { getUrlListReferer } = require('./v4')
 
 // 2. 访问路由执行回调
 app.get('/', (req, res) => {
@@ -55,7 +53,7 @@ app.get('/v3', async (req, res) => {
 
 app.get('/v4', (req, res) => {
     // getUrlList();
-    // getUrlListAsync(2)
+    getUrlListReferer(2)
     res.send('hello v4');
 });
 
