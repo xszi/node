@@ -20,12 +20,12 @@ app.get('/', (req, res) => {
     // const result = $.html();
     // <html><head></head><body><h2 class="title welcome">Hello there!</h2></body></html>
 
-    const jsdom = require("jsdom");
-    const { JSDOM } = jsdom;
-    const dom = new JSDOM(`<!DOCTYPE html><p><span>Hello world</span></p>`);
-    const result = dom.window.document.querySelector("p").innerHTML;
+    // const jsdom = require("jsdom");
+    // const { JSDOM } = jsdom;
+    // const dom = new JSDOM(`<!DOCTYPE html><p><span>Hello world</span></p>`);
+    // const result = dom.window.document.querySelector("p").innerHTML;
 
-    res.send('hello spider!' + result);
+    // res.send('hello spider!' + result);
 });
 
 app.get('/v1', (req, res) => {

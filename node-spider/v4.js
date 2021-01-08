@@ -10,7 +10,6 @@ async function getUrlListReferer(page) {
         'referer': 'https://www.bigbigwork.com/tupian/image/20148309331.html'
     }
 
-    console.log('hahahahaha');
     axios.get(searchUrl)
         .then(resp => {
             const resList = resp.data.data;
