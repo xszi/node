@@ -20,7 +20,7 @@ async function getUrlListV2 (page) {
 
     // 解析字符串(html字符串)
     const $ = cheerio.load(data);
-    // console.log($('script'))
+    console.log($('script'))
     // return $('script')
 
     // 使用jsdom解析
