@@ -1,6 +1,5 @@
 const express = require('express');
 const URL = require('url');
-// const connection = require('../db');
 // const getAES = require('../password')
 
 let router = express.Router();

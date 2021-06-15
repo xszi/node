@@ -56,7 +56,7 @@
         var qs = Qs
         qs.stringify()
         axios.get('/api/getDataList').then(function (res) {
-            // let {data} = res.data;
+            let {data} = res.data;
             setDataList(res.data.data||[])
         })
     }

