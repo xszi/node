@@ -1,10 +1,24 @@
 const express = require('express');
 const URL = require('url');
 // const getAES = require('../password')
+const Sequelize = require('sequelize');
+const TodolistModel = require('../model/Todolist')
+const {
+    dataBaseConnectionConfig
+} = require('../constants/index')
+
+const {
+    sckemas,
+    loginName,
+    password,
+    database
+} = dataBaseConnectionConfig
+const sequelize = new Sequelize(sckemas, loginName, password, database);
+const todolist = TodolistModel(sequelize, Sequelize.DataTypes)
 
 let router = express.Router();
 
-router.get('/getDataList', function (req, res) {
+router.get('/getDataList', async function (req, res) {
     const {
         cookies,
         name,
@@ -12,29 +26,30 @@ router.get('/getDataList', function (req, res) {
         body
     } = req;
     // res.setHeader("Content-Type", 'text/palin;charset=utf-8');
+    console.log(cookies, 'cookies');
+    console.log('body.username: ', cookies.username);
     if (cookies.username) {
-        // let sql = `
-        // select * from todo_tbl WHERE author = '${cookies.username}'`
-        // connection.query(sql, function (error, results, fields) {
-        //     if (error) throw error;
-        //     if (results) {
-        //         // res.json(200,{message:'请求成功'})
-        //         res.status(200).json({
-        //             message: '请求成功',
-        //             data: results,
-        //         })
-        //     } else {
-        //         res.render("error");
-        //     }
-        // });
-
+        const results = await todolist.findAll({
+            where: {
+                username: cookies.username
+            }
+        });
+        if (results) {
+            // res.json(200,{message:'请求成功'})
+            res.status(200).json({
+                message: '请求成功',
+                data: results,
+            })
+        } else {
+            res.render("error");
+        }
     } else {
         res.json(401, {
             message: '未登录'
         })
     }
 })
-router.post('/setDataList', function (req, res) {
+router.post('/setDataList', async function (req, res) {
     let {
         cookies,
         body,
@@ -46,26 +61,73 @@ router.post('/setDataList', function (req, res) {
         },
     } = req;
     var p = URL.parse(referer);
+    console.log('body6666: ', body);
+    console.log('body.username: ', cookies.username);
+
+    let results = await todolist.create({
+        username: cookies.username,
+        title: '111',
+        content: body.value
+    })
+
+    console.log('results:', results);
+    if (results) {
+        res.status(200).json({
+            message: '请求成功',
+        })
+    } else {
+        res.json(400, {
+            message: '请求失败'
+        })
+    }
     // console.log('哈哈哈哈', p)
     /* 校验referer */
     // if(p.href !== 'http://localhost:4000/home') throw '校验referer-非法请求'
     /* 校验nonce */
     // const bol = getAES(token, times) === nonce;
     // if (!bol) throw '校验nonce-非法请求'
+})
 
-    /* 不做任何校验 */
-    // let sql = `
-    //     UPDATE todo_tbl SET data='${body.value}' WHERE author = '${cookies.username}'`
-    // connection.query(sql, function (error, results, fields) {
-    //     if (error) throw error;
-    //     if (results) {
-    //         res.status(200).json({
-    //             message: '请求成功',
-    //         })
-    //     } else {
-    //         res.render("error");
-    //     }
-    // });
+router.post('/deleteComment', async function (req, res) {
+    let {
+        cookies,
+        body,
+        headers: {
+            referer,
+            times,
+            nonce,
+            token
+        },
+    } = req;
+    var p = URL.parse(referer);
+    console.log('body.username: ', cookies.username);
+    console.log('body=====: ', body);
+    if (cookies.username) {
+        const results1 = await todolist.findOne({
+            where: {
+                id: body.id
+            }
+        });
+        if (results1) {
+            const results2 = await todolist.destroy({
+                where: {
+                    id: body.id
+                }
+            });
+            if (results2) {
+                // res.json(200,{message:'请求成功'})
+                res.status(200).json({
+                    message: '删除成功',
+                    data: results2,
+                })
+            } 
+        } else {
+            res.json(400, {
+                message: '请求失败'
+            })
+        }
+
+    }
 })
 
 module.exports = router;

@@ -70,8 +70,26 @@
         const params = qs.stringify({value})
         let time1 = Date.parse(new Date()); //精确到秒
         axios({
-            headers: {'nonce': getAES(token, time1), 'times': time1},
+            // headers: {'nonce': getAES(token, time1), 'times': time1},
             url: '/api/setDataList',
+            method: 'post',
+            data: params
+            // data: {"data":`"${value}"`}
+        }).then(res=>{
+            if(res.status === 200) {
+                getList();
+            }
+        })
+    }
+
+    const deleteComment = (e, res) => {
+        const id = res.id
+        var qs = Qs
+        const params = qs.stringify({id})
+        let time1 = Date.parse(new Date()); //精确到秒
+        axios({
+            // headers: {'nonce': getAES(token, time1), 'times': time1},
+            url: '/api/deleteComment',
             method: 'post',
             data: params
             // data: {"data":`"${value}"`}
@@ -89,9 +107,9 @@
     return <div><ul>
             {dataList.map(res=>{
                 return <li>
-                        <h2>姓名：{res.author}</h2>
+                        <h2>姓名：{res.username}</h2>
                         <h2>title：{res.title}</h2>
-                        <h2>内容：{res.data}</h2>
+                        <h2>内容：{res.content}<button onClick={(e) => deleteComment(e, res)}>删除</button></h2>
                     </li>
             })}
         </ul>

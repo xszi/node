@@ -81,7 +81,6 @@ async function toLogin(req, res) {
             password: password
         }
     });
-    console.log(result, '=====');
     if (result && result.length) {
         const expTime = 60 * 20; // 过期时间20分钟
         const token = jwt.sign({
