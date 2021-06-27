@@ -31,7 +31,8 @@ app.use(cookieParser());
 
 
 function checkCommon(req, res, next) {
-    // res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('X-Content-Type-Options', 'nosniff');
     // res.setHeader('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
     // res.setHeader('Access-Control-Allow-Headers', 'Content-Type, X-Requested-With, Authorization');
 

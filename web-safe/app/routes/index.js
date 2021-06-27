@@ -3,6 +3,7 @@ const jwt = require("jsonwebtoken");
 
 const Sequelize = require('sequelize');
 const UserModel = require('../model/User')
+const TodolistModel = require('../model/Todolist')
 const {
     dataBaseConnectionConfig
 } = require('../constants/index')
@@ -17,6 +18,7 @@ const {
 const sequelize = new Sequelize(sckemas, loginName, password, database);
 
 const user = UserModel(sequelize, Sequelize.DataTypes)
+const todolist = TodolistModel(sequelize, Sequelize.DataTypes)
 
 const secret = 'token';
 
@@ -39,8 +41,8 @@ router.get('/login', function (req, res) {
     res.render("login");
 });
 
-// router.get('/home', isLogin, function (req, res) {
-router.get('/home', function (req, res) {
+router.get('/home', isLogin, function (req, res) {
+// router.get('/home', function (req, res) {
     res.render("home")
 });
 
@@ -52,20 +54,22 @@ router.post("/login", toLogin);
 
 router.get("/xss", async (req, res) => {
     const { query } = req;
-    let result = await user.findOne({
+    let result = await todolist.findOne({
         where: {
-            password: '123'
+            username: 'xszi',
+            title: 'xss'
         }
     })
-    console.log(result.dataValues, 'result');
 
     if (result) {
         res.render('xss', {
-            from: result.dataValues.password,
-            username: result.dataValues.password,
+            username: result.dataValues.username,
+            title: result.dataValues.title,
+            content: result.dataValues.content
+
             // test: result.dataValues.username
             // test: '<script>alert(1)</script>' // 用一些库将返回的字段进行过滤处理
-            test: '<script src="http://localhost:5000/xss.html"></script>'
+            // test: '<script src="http://localhost:5000/xss.html"></script>'
         })
     }
 });

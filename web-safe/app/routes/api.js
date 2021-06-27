@@ -26,8 +26,6 @@ router.get('/getDataList', async function (req, res) {
         body
     } = req;
     // res.setHeader("Content-Type", 'text/palin;charset=utf-8');
-    console.log(cookies, 'cookies');
-    console.log('body.username: ', cookies.username);
     if (cookies.username) {
         const results = await todolist.findAll({
             where: {
@@ -61,16 +59,13 @@ router.post('/setDataList', async function (req, res) {
         },
     } = req;
     var p = URL.parse(referer);
-    console.log('body6666: ', body);
-    console.log('body.username: ', cookies.username);
 
     let results = await todolist.create({
         username: cookies.username,
-        title: '111',
-        content: body.value
+        title: body.title,
+        content: body.content
     })
 
-    console.log('results:', results);
     if (results) {
         res.status(200).json({
             message: '请求成功',
@@ -100,8 +95,6 @@ router.post('/deleteComment', async function (req, res) {
         },
     } = req;
     var p = URL.parse(referer);
-    console.log('body.username: ', cookies.username);
-    console.log('body=====: ', body);
     if (cookies.username) {
         const results1 = await todolist.findOne({
             where: {

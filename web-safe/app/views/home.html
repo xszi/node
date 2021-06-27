@@ -23,7 +23,8 @@
     const compsButton = React.createElement(() => {
     const { useEffect, useRef, useState } = window.React;
 
-    const [value, setValue] = useState('');
+    const [title, setTitle] = useState('');
+    const [content, setContent] = useState('');
     const [dataList, setDataList] = useState([{}]);
 
     function getAesString(data,key,iv){//加密
@@ -61,13 +62,19 @@
         })
     }
 
-    const onchange = (event)=>{
+    const onTitleChange = (event)=>{
         event.persist();
-        setValue(event.target.value)
+        setTitle(event.target.value)
     }
+
+    const onContentChange = (event)=>{
+        event.persist();
+        setContent(event.target.value)
+    }
+
     const onsubmit = (event)=>{
         var qs = Qs
-        const params = qs.stringify({value})
+        const params = qs.stringify({title, content})
         let time1 = Date.parse(new Date()); //精确到秒
         axios({
             // headers: {'nonce': getAES(token, time1), 'times': time1},
@@ -113,7 +120,11 @@
                     </li>
             })}
         </ul>
-        <span>添加：</span><input type="text" value={value} onChange={onchange} />
+        <div>
+            <p>添加评论：</p>
+            <p>标题：<input type="text" title={title} onChange={onTitleChange} /></p>
+            <p>内容：<input type="text" content={content} onChange={onContentChange} /></p>
+        </div>
         <button onClick={onsubmit}>提交</button>
         <button onClick={onFollow}>关注</button>
         </div>
