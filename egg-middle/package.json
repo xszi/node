@@ -10,7 +10,7 @@
     "koa-compress": "^3.0.0"
   },
   "devDependencies": {
-    "egg-bin": "^4.3.5",
+    "egg-bin": "^4.20.0",
     "egg-mock": "^3.13.1"
   },
   "engines": {
